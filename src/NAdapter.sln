@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27004.2005
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NAdapter", "NAdapter\NAdapter.csproj", "{D6CAD7D4-444E-4018-8E96-79D91DDE8C72}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NAdapter.Test", "NAdapter.Test\NAdapter.Test.csproj", "{CD7C7FE1-4B4E-4049-96C9-38F66CB669F2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D6CAD7D4-444E-4018-8E96-79D91DDE8C72}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D6CAD7D4-444E-4018-8E96-79D91DDE8C72}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D6CAD7D4-444E-4018-8E96-79D91DDE8C72}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D6CAD7D4-444E-4018-8E96-79D91DDE8C72}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD7C7FE1-4B4E-4049-96C9-38F66CB669F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD7C7FE1-4B4E-4049-96C9-38F66CB669F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD7C7FE1-4B4E-4049-96C9-38F66CB669F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD7C7FE1-4B4E-4049-96C9-38F66CB669F2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D737DB52-5EEA-4F43-B868-E9B8E4E31B33}
+	EndGlobalSection
+EndGlobal
