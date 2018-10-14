@@ -45,6 +45,6 @@ steps:
   inputs:
     command: push
     nuGetFeedType: external
-    publishFeedCredentials: NuGet.org
+    publishFeedCredentials: NuGet
     versioningScheme: byEnvVar
     versionEnvVar: Version
