@@ -39,7 +39,7 @@ steps:
     majorVersion: '$(Major)'
     minorVersion: '$(Minor)'
     patchVersion: '$(Patch)'
-    packagesToPack: '**/*.csproj'
+    packagesToPack: 'src/NAdapter/NAdapter.csproj'
     
 - task: NuGetCommand@2
   inputs:
