@@ -4,7 +4,7 @@
 
 ## Getting Started
 
-`NAdapter` will soon be found on NuGet and is available on .NET 4.7.1. Lower versions of .NET will be supported in the future.
+`NAdapter` is available on NuGet for .NET Framework 4.8, .NET 5.0, and .NET Standard 2.1. Lower versions of .NET may be supported in the future.
 
 ```
 > Install-Package NAdapter
@@ -76,7 +76,7 @@ So I invented one. `NAdapter` is an open-source library for the .NET Framework w
 
 1. Add type-converting filters on properties.
 2. Add option to create a new TComponent by default.
-3. Add support for other frameworks: net45, net461, netcore
+3. Add support for lower frameworks: net45, net461, netcore
 4. Add attributes to more types
 	1. Property getters/setters
 	2. Assemblies

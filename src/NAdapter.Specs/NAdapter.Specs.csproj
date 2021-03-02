@@ -9,7 +9,6 @@
     <RootNamespace>NAdapter.Specs</RootNamespace>
     <AssemblyName>NAdapter.Specs</AssemblyName>
     <PlatformTarget>AnyCPU</PlatformTarget>
-    <Version>0.1.0</Version>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
