@@ -8,11 +8,11 @@ pool:
 
 variables:
   solution: '**/*.sln'
+  project: '**/NAdapter.csproj'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
-  Major: '0'
-  Minor: '1'
-  Patch: '0'
+
+name: 0.1.$(Build.BuildId)
 
 steps:
 - task: NuGetToolInstaller@0
@@ -21,30 +21,29 @@ steps:
   inputs:
     restoreSolution: '$(solution)'
 
-- task: VSBuild@1
+- task: DotNetCoreCLI@2
   inputs:
-    solution: '$(solution)'
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
+    command: 'build'
+    projects: '$(solution)'
+    arguments: '-c $(buildConfiguration) --no-restore'
+    versioningScheme: byBuildNumber
 
-- task: VSTest@2
+- task: DotNetCoreCLI@2
   inputs:
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
+    command: 'test'
+    arguments: '-c $(buildConfiguration) --no-build'
+    projects: '$(solution)'
 
-- task: NuGetCommand@2
+- task: DotNetCoreCLI@2
   inputs:
     command: pack
-    versioningScheme: byPrereleaseNumber
-    majorVersion: '$(Major)'
-    minorVersion: '$(Minor)'
-    patchVersion: '$(Patch)'
-    packagesToPack: '**/NAdapter.csproj'
+    nobuild: true
+    versioningScheme: byBuildNumber
+    packagesToPack: '$(project)'
     
 - task: NuGetCommand@2
   inputs:
     command: push
     nuGetFeedType: external
     publishFeedCredentials: 'NuGet'
-    versioningScheme: byEnvVar
-    versionEnvVar: Version
+    versioningScheme: byBuildNumber
