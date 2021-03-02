@@ -10,7 +10,6 @@
     <RootNamespace>NAdapter</RootNamespace>
     <AssemblyName>NAdapter</AssemblyName>
     <PlatformTarget>AnyCPU</PlatformTarget>
-    <Version>0.1.0</Version>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
