@@ -7,6 +7,7 @@ using System.Runtime.CompilerServices;
 
 namespace NAdapter
 {
+#if NETFRAMEWORK
     /// <summary>
     /// Behavior of a method defined from a LINQ expression
     /// </summary>
@@ -75,4 +76,5 @@ namespace NAdapter
                 validation.AddError($"{_name} has no linq expression.");
         }
     }
+#endif
 }

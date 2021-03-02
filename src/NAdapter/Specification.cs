@@ -18,7 +18,6 @@ namespace NAdapter
     {
         const string kAssembly = "NAdapter.Dynamic";
 
-        static object s_assemblyLock = new object();
         static object s_typeLock = new object();
         static Dictionary<string, int> _reservedNames = new Dictionary<string, int>();
         static ModuleBuilder _module;
@@ -27,8 +26,8 @@ namespace NAdapter
         static Specification()
         {
             var assemblyName = new AssemblyName(kAssembly);
-            _assembly = AppDomain.CurrentDomain.DefineDynamicAssembly(assemblyName, AssemblyBuilderAccess.RunAndSave, new FileInfo(Assembly.GetExecutingAssembly().Location).DirectoryName);
-            _module = _assembly.DefineDynamicModule(assemblyName.Name, $"{assemblyName.Name}.Module.dll");
+            _assembly = AssemblyBuilder.DefineDynamicAssembly(assemblyName, AssemblyBuilderAccess.RunAndCollect);
+            _module = _assembly.DefineDynamicModule(assemblyName.Name);
         }
 
         static bool TypeAlreadyExists(string name)

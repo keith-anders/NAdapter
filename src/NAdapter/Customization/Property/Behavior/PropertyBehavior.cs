@@ -403,37 +403,68 @@ namespace NAdapter
 
         private void EmitFilters(IEnumerable<LambdaExpression> lambdas, Lazy<TypeSpecifier> nestedType, ILGenerator il, FieldBuilder sourceField, string name, MethodBuilder otherMethod, Type otherDelegateType)
         {
+            LocalBuilder lb = null;
             foreach (var lambda in lambdas)
             {
+                MethodInfo methodToCall;
+                var parameterCount = lambda.Parameters.Count;
+
+#if NETFRAMEWORK
+                // We'd really like to compile this straight into our method,
+                // but `LambdaExpression.CompileToMethod` only takes static methods,
+                // so the next best thing is to use this attribute to tell the JITter
+                // that it should be inlined.
                 Type[] parameters = lambda.Parameters.Select(p => p.Type).ToArray();
                 var staticMethod = nestedType.Value.TypeBuilder.DefineMethod(
                     nestedType.Value.GetMethodName($"get_{name}"),
                     MethodAttributes.Public | MethodAttributes.Static | MethodAttributes.HideBySig,
                     CallingConventions.Standard, PropertyType, parameters);
                 
-                // We'd really like to compile this straight into our method,
-                // but `LambdaExpression.CompileToMethod` only takes static methods,
-                // so the next best thing is to use this attribute to tell the JITter
-                // that it should be inlined.
                 staticMethod.SetCustomAttribute(new CustomAttributeBuilder(
                     typeof(MethodImplAttribute).GetConstructor(new Type[] { typeof(MethodImplOptions) }),
                     new object[1] { MethodImplOptions.AggressiveInlining }));
-                
+
                 lambda.CompileToMethod(staticMethod);
 
-                if (parameters.Length > 1)
+                methodToCall = staticMethod;
+
+#else
+                var compiledDelegate = lambda.Compile();
+                var delegateType = compiledDelegate.GetType();
+                string fieldIdentifier = nestedType.Value.GetUniqueBackingFieldIdentifier(name);
+                var backingDelegate = nestedType.Value.TypeBuilder.DefineField(fieldIdentifier, delegateType, FieldAttributes.Public | FieldAttributes.Static);
+                nestedType.Value.RunAfterCreation(() =>
+                {
+                    backingDelegate.SafeSetValue(null, compiledDelegate);
+                });
+
+                methodToCall = delegateType.GetMethod("Invoke");
+
+                if (lb == null)
+                    lb = il.DeclareLocal(methodToCall.GetParameters()[0].ParameterType);
+
+                il.Emit(OpCodes.Stloc, lb);
+                il.Emit(OpCodes.Ldsfld, backingDelegate);
+                il.Emit(OpCodes.Ldloc, lb);
+
+#endif
+                if (parameterCount > 1)
                 {
                     il.Emit(OpCodes.Ldarg_0);
                     il.Emit(OpCodes.Ldfld, sourceField);
                 }
-                if (parameters.Length > 2)
+                if (parameterCount > 2)
                 {
                     il.Emit(OpCodes.Ldarg_0);
                     il.Emit(OpCodes.Ldftn, otherMethod);
                     il.Emit(OpCodes.Newobj, otherDelegateType.GetConstructors().Single());
                 }
 
-                il.Emit(OpCodes.Call, staticMethod);
+#if NETFRAMEWORK
+                il.Emit(OpCodes.Call, methodToCall);
+#else
+                il.Emit(OpCodes.Callvirt, methodToCall);
+#endif
             }
         }
 

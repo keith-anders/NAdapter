@@ -4,14 +4,12 @@
     <id>NAdapter</id>
     <version>$version$</version>
     <title>NAdapter</title>
-    <authors>Keith Anders</authors>
     <owners>Keith Anders</owners>
     <licenseUrl>https://github.com/keith-anders/NAdapter/LICENSE</licenseUrl>
     <projectUrl>https://github.com/keith-anders/NAdapter/</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>Initial Release.</releaseNotes>
-    <copyright>Copyright 2018</copyright>
+    <releaseNotes>Pre-release</releaseNotes>
     <tags>adapter wrapper il emit method</tags>
   </metadata>
 </package>

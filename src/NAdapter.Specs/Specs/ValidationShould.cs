@@ -95,8 +95,8 @@ namespace NAdapter.Test
             // a malformed type with raw MSIL in order to test this.
 
             var assemblyName = new AssemblyName("NAdapter.Test.Dynamic");
-            var assembly = AppDomain.CurrentDomain.DefineDynamicAssembly(assemblyName, AssemblyBuilderAccess.RunAndSave);
-            var module = assembly.DefineDynamicModule(assemblyName.Name, assemblyName.Name + "Module.dll");
+            var assembly = AssemblyBuilder.DefineDynamicAssembly(assemblyName, AssemblyBuilderAccess.RunAndCollect);
+            var module = assembly.DefineDynamicModule(assemblyName.Name);
 
             var tb = module.DefineType("InvalidPropGetterSetter", TypeAttributes.Public, typeof(Object));
 

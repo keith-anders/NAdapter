@@ -196,6 +196,22 @@ namespace NAdapter
         }
 
         /// <summary>
+        /// Gets an identifier for a backing field, guaranteed
+        /// to be unique.
+        /// </summary>
+        /// <param name="propertyName">Property name</param>
+        /// <returns>Backing field identifier</returns>
+        internal string GetUniqueBackingFieldIdentifier(string propertyName)
+        {
+            for (int i = 0; true; ++i)
+            {
+                string fieldIdentifier = $"<{propertyName}_{i}>k__BackingField";
+                if (_identifiers.Add(fieldIdentifier))
+                    return fieldIdentifier;
+            }
+        }
+
+        /// <summary>
         /// Gets an identifier for a backing field setter
         /// </summary>
         /// <param name="propertyName">Property name</param>

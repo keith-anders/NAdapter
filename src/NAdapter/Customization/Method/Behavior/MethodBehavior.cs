@@ -461,7 +461,12 @@ namespace NAdapter
             }
             BackingMethodInfo = null;
             var lambda = Expression.Lambda(result.Body, paramExprs);
+#if NETFRAMEWORK
             _behavior = new MethodBehaviorFromExpression<TComponent>(lambda, _decoration.PublicName, paramTypes.ToArray());
+#else
+            _behavior = new MethodFromDelegateBehavior(lambda.Compile(), _decoration.PublicName, paramTypes.ToArray());
+#endif
+
             return (TThis)this;
         }
         

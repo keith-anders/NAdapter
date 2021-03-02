@@ -94,6 +94,17 @@ namespace NAdapter
         }
 
         /// <summary>
+        /// Gets the name of a new field to contain a backing field,
+        /// guaranteed to be unique.
+        /// </summary>
+        /// <param name="propertyName">Property name</param>
+        /// <returns>Field name</returns>
+        internal string GetUniqueBackingFieldIdentifier(string propertyName)
+        {
+            return _identifiers.GetUniqueBackingFieldIdentifier(propertyName);
+        }
+
+        /// <summary>
         /// Gets the name of a new field to contain a backing setter delegate
         /// </summary>
         /// <param name="propertyName">Property name</param>
